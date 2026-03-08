@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import './Skills.css';
-import { getAdminData } from './AdminPanel';
+import { getAdminData } from './adminUtils';
 
 const DEFAULT_SKILLS = [
   { name: 'Python', percent: 90, color: '#3776AB' },

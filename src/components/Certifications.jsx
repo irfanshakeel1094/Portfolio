@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import './Certifications.css';
-import { getAdminData } from './AdminPanel';
+import { getAdminData } from './adminUtils';
 
 const DEFAULT_CERTIFICATIONS = [
   { title: 'Python for Everybody', issuer: 'Coursera / University of Michigan', date: '2024', credentialId: 'COURSERA-PY4E', color: '#3b82f6', tags: 'Python, Data Structures, OOP', link: '#' },
@@ -89,6 +89,7 @@ export default function Certifications() {
                 </div>
 
                 {/* Footer */}
+                {cert.link && cert.link !== '#' && (
                 <div className="cert-footer">
                   <a
                     href={cert.link}
@@ -103,6 +104,7 @@ export default function Certifications() {
                     Verify Credential
                   </a>
                 </div>
+                )}
               </div>
 
               {/* Hover glow */}

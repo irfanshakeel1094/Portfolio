@@ -1,6 +1,21 @@
 /* ============================================
    CONTACT SECTION
    ============================================ */
+.form-error {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #ef4444;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  margin-bottom: 12px;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .contact-grid {
   display: grid;
   grid-template-columns: 0.9fr 1.1fr;
@@ -101,7 +116,7 @@
 .form-group input,
 .form-group textarea {
   width: 100%;
-  padding: 16px 0 8px;
+  padding: 16px 12px 8px;
   background: transparent;
   border: none;
   border-bottom: 1px solid var(--border-glass);
@@ -111,17 +126,31 @@
   outline: none;
   transition: border-color var(--transition-smooth);
   resize: none;
+  -webkit-appearance: none;
+  appearance: none;
+  color-scheme: dark;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
-  border-color: var(--accent-purple);
+  border-color: transparent;
+}
+
+/* Override browser autofill light background */
+.form-group input:-webkit-autofill,
+.form-group input:-webkit-autofill:hover,
+.form-group input:-webkit-autofill:focus,
+.form-group textarea:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px #151520 inset !important;
+  -webkit-text-fill-color: var(--text-primary) !important;
+  caret-color: var(--text-primary);
+  transition: background-color 5000s ease-in-out 0s;
 }
 
 .form-group label {
   position: absolute;
   top: 16px;
-  left: 0;
+  left: 12px;
   color: var(--text-muted);
   font-size: 0.95rem;
   pointer-events: none;
@@ -133,6 +162,7 @@
 .form-group textarea:focus + label,
 .form-group textarea:not(:placeholder-shown) + label {
   top: -4px;
+  left: 12px;
   font-size: 0.75rem;
   color: var(--accent-purple);
 }
@@ -152,25 +182,188 @@
   width: 100%;
 }
 
-/* Success state */
-.form-success {
-  text-align: center;
-  padding: 40px 20px;
+/* ---- Form / Success Transition Wrapper ---- */
+.contact-form-wrapper {
+  position: relative;
 }
 
-.form-success svg {
-  color: #22c55e;
-  margin-bottom: 16px;
+/* The form layer */
+.contact-form-wrapper > form {
+  transition: opacity 0.5s ease, transform 0.5s ease, filter 0.5s ease;
+}
+
+/* Success container — rendered directly in flow */
+.success-container.form-submitted-visible {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-card);
+  border: 1px solid var(--border-glass);
+  border-radius: 24px;
+  padding: 40px;
+  animation: successFadeIn 0.5s ease both;
+}
+
+/* When submitted — form fades out, success fades in */
+.contact-form-wrapper.form-submitted > form {
+  opacity: 0;
+  transform: translateY(-20px) scale(0.97);
+  filter: blur(4px);
+  pointer-events: none;
+}
+
+/* Success state */
+.success-container {
+  animation: none;
+}
+
+@keyframes successFadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.form-success {
+  text-align: center;
+  padding: 48px 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animated particles */
+.success-particles {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  opacity: 0;
+}
+
+.particle-animate {
+  animation: particleBurst 1s ease-out forwards;
+  animation-delay: calc(var(--i) * 0.05s);
+}
+
+.particle:nth-child(odd) { background: #8b5cf6; }
+.particle:nth-child(even) { background: #06b6d4; }
+.particle:nth-child(3n) { background: #22c55e; width: 6px; height: 6px; border-radius: 2px; }
+.particle:nth-child(4n) { background: #ec4899; }
+
+@keyframes particleBurst {
+  0% { transform: translate(0, 0) scale(0); opacity: 1; }
+  50% { opacity: 1; }
+  100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
+}
+
+.particle:nth-child(1)  { --tx:  80px; --ty: -60px; }
+.particle:nth-child(2)  { --tx: -70px; --ty: -80px; }
+.particle:nth-child(3)  { --tx:  90px; --ty:  30px; }
+.particle:nth-child(4)  { --tx: -60px; --ty:  70px; }
+.particle:nth-child(5)  { --tx:  40px; --ty: -90px; }
+.particle:nth-child(6)  { --tx: -90px; --ty: -20px; }
+.particle:nth-child(7)  { --tx:  70px; --ty:  60px; }
+.particle:nth-child(8)  { --tx: -40px; --ty:  90px; }
+.particle:nth-child(9)  { --tx:  95px; --ty: -10px; }
+.particle:nth-child(10) { --tx: -85px; --ty:  45px; }
+.particle:nth-child(11) { --tx:  20px; --ty:  85px; }
+.particle:nth-child(12) { --tx: -50px; --ty: -75px; }
+
+/* Checkmark animation */
+.success-icon {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+  opacity: 0;
+  transform: scale(0);
+}
+
+.success-icon-animate {
+  animation: iconBounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.45s both;
+}
+
+@keyframes iconBounce {
+  from { transform: scale(0); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.success-circle {
+  stroke-dasharray: 63;
+  stroke-dashoffset: 63;
+}
+
+.success-circle-animate {
+  animation: drawCircle 0.8s ease-out 0.55s forwards;
+}
+
+@keyframes drawCircle {
+  to { stroke-dashoffset: 0; }
+}
+
+.success-check {
+  stroke-dasharray: 20;
+  stroke-dashoffset: 20;
+}
+
+.success-check-animate {
+  animation: drawCheck 0.4s ease-out 1.05s forwards;
+}
+
+@keyframes drawCheck {
+  to { stroke-dashoffset: 0; }
 }
 
 .form-success h3 {
   font-family: var(--font-heading);
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   margin-bottom: 8px;
+  opacity: 0;
 }
 
 .form-success p {
   color: var(--text-secondary);
+  font-size: 0.95rem;
+  opacity: 0;
+}
+
+.form-submitted-visible .form-success h3 {
+  animation: textSlideUp 0.5s ease-out 0.75s both;
+}
+
+.form-submitted-visible .form-success p {
+  animation: textSlideUp 0.5s ease-out 0.85s both;
+}
+
+@keyframes textSlideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.success-divider {
+  width: 60px;
+  height: 2px;
+  background: var(--gradient-primary);
+  margin: 24px auto;
+  opacity: 0;
+}
+
+.success-btn {
+  margin: 0 auto;
+  opacity: 0;
+}
+
+.success-divider-animate {
+  animation: textSlideUp 0.5s ease-out 0.95s both;
+}
+
+.success-btn-animate {
+  animation: textSlideUp 0.5s ease-out 1.05s both;
 }
 
 /* Responsive */

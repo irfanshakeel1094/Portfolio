@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import './Resume.css';
-import { getResumeURL, getResumeMeta } from './AdminPanel';
+import { getResumeURL, getResumeMeta } from './adminUtils';
 
 export default function Resume() {
   const [resumeUrl, setResumeUrl] = useState(() => getResumeURL());

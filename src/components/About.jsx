@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import './About.css';
-import { getAdminData } from './AdminPanel';
+import { getAdminData } from './adminUtils';
 
 export default function About() {
   const [aboutData, setAboutData] = useState(() => {

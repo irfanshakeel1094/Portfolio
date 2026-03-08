@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { getAdminData, getResumeMeta, getResumeURL } from './adminUtils';
 import './AdminPanel.css';
 
 const ADMIN_CREDENTIALS = {
@@ -99,36 +100,12 @@ const DEFAULT_CERTIFICATIONS = [
   },
 ];
 
-// Helper to load admin data from localStorage
-export function getAdminData() {
-  try {
-    const saved = localStorage.getItem('portfolio_admin_data');
-    if (saved) return JSON.parse(saved);
-  } catch { /* ignore */ }
-  return null;
-}
 
-// Helper to get the resume URL (uploaded or default)
-export function getResumeURL() {
-  try {
-    const data = localStorage.getItem('portfolio_resume_pdf');
-    if (data) return data;
-  } catch { /* ignore */ }
-  return '/resume.pdf';
-}
-
-// Helper to get resume metadata
-export function getResumeMeta() {
-  try {
-    const meta = localStorage.getItem('portfolio_resume_meta');
-    if (meta) return JSON.parse(meta);
-  } catch { /* ignore */ }
-  return null;
-}
 
 export default function AdminPanel() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showFab, setShowFab] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(() => sessionStorage.getItem('admin_logged_in') === 'true');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
@@ -159,9 +136,18 @@ export default function AdminPanel() {
     };
   });
 
+
+
+  // Secret key combo: Ctrl+Shift+A toggles admin FAB visibility
   useEffect(() => {
-    const loggedIn = sessionStorage.getItem('admin_logged_in');
-    if (loggedIn === 'true') setIsLoggedIn(true);
+    const handleKeyDown = (e) => {
+      if (e.ctrlKey && e.shiftKey && e.key === 'A') {
+        e.preventDefault();
+        setShowFab(prev => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
   const handleLogin = (e) => {
@@ -294,7 +280,7 @@ export default function AdminPanel() {
         setResumeMeta(meta);
         setSaveNotif('Resume uploaded successfully!');
         window.dispatchEvent(new Event('adminDataUpdated'));
-      } catch (err) {
+      } catch {
         setSaveNotif('Error: Storage full. Try a smaller file.');
       }
       setResumeUploading(false);
@@ -325,7 +311,8 @@ export default function AdminPanel() {
 
   return (
     <>
-      {/* Floating Admin Button */}
+      {/* Floating Admin Button — hidden until Ctrl+Shift+A */}
+      {showFab && (
       <button
         className="admin-fab"
         onClick={() => setIsOpen(true)}
@@ -337,6 +324,7 @@ export default function AdminPanel() {
           <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
         </svg>
       </button>
+      )}
 
       {/* Admin Panel Overlay */}
       {isOpen && (

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import './Projects.css';
-import { getAdminData } from './AdminPanel';
+import { getAdminData } from './adminUtils';
 
 const DEFAULT_PROJECTS = [
   {

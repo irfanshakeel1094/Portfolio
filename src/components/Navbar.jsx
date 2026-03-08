@@ -4,7 +4,9 @@ import './Navbar.css';
 const navItems = [
   { label: 'Home', href: '#hero' },
   { label: 'About', href: '#about' },
+  { label: 'Services', href: '#services' },
   { label: 'Skills', href: '#skills' },
+  { label: 'Journey', href: '#timeline' },
   { label: 'Projects', href: '#projects' },
   { label: 'Certs', href: '#certifications' },
   { label: 'Resume', href: '#resume' },

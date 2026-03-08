@@ -2,20 +2,29 @@ import { useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
+import Services from './components/Services';
 import Skills from './components/Skills';
+import Timeline from './components/Timeline';
 import Projects from './components/Projects';
 import Certifications from './components/Certifications';
 import Resume from './components/Resume';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import AdminPanel from './components/AdminPanel';
-import { FloatingShapes } from './components/Effects3D';
+import FloatingShapes from './components/Effects3D';
 import './components/Effects3D.css';
 import './App.css';
 
 export default function App() {
   // Scroll-triggered reveal animations
   useEffect(() => {
+    // Remove loading screen
+    const loader = document.getElementById('loader');
+    if (loader) {
+      loader.style.opacity = '0';
+      setTimeout(() => loader.remove(), 500);
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach(entry => {
@@ -50,7 +59,9 @@ export default function App() {
       <Navbar />
       <Hero />
       <About />
+      <Services />
       <Skills />
+      <Timeline />
       <Projects />
       <Certifications />
       <Resume />

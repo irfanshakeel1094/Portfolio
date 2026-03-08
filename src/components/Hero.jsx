@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import './Hero.css';
 import profileImg from '../assets/images/profile.jpg';
-import { useMouseParallax } from './Effects3D';
-import { getAdminData } from './AdminPanel';
+import { useMouseParallax } from './hooks3D';
+import { getAdminData } from './adminUtils';
 
 const typedStrings = [
   'Full Stack Web Apps',

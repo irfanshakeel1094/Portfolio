@@ -1,0 +1,83 @@
+/* ============================================
+   SERVICES SECTION
+   ============================================ */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.service-card {
+  position: relative;
+  padding: 36px 28px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-glass);
+  border-radius: 20px;
+  transition: all var(--transition-smooth);
+  overflow: hidden;
+}
+
+.service-card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--service-color, var(--accent-purple));
+  transform: translateY(-4px);
+}
+
+.service-icon {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(139, 92, 246, 0.08);
+  border: 1px solid rgba(139, 92, 246, 0.15);
+  border-radius: 16px;
+  margin-bottom: 20px;
+  color: var(--service-color, var(--accent-purple));
+  transition: all var(--transition-smooth);
+}
+
+.service-card:hover .service-icon {
+  background: rgba(139, 92, 246, 0.15);
+  transform: scale(1.05);
+}
+
+.service-card h3 {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--text-primary);
+}
+
+.service-card p {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.service-glow {
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, var(--service-color, rgba(139, 92, 246, 0.08)), transparent 70%);
+  opacity: 0;
+  transition: opacity var(--transition-smooth);
+  pointer-events: none;
+}
+
+.service-card:hover .service-glow {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .service-card {
+    padding: 28px 24px;
+  }
+}

@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import './Contact.css';
-import { getAdminData } from './AdminPanel';
+import { getAdminData } from './adminUtils';
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState('');
 
   const [contactData, setContactData] = useState(() => {
     const data = getAdminData();
@@ -19,10 +21,30 @@ export default function Contact() {
     return () => window.removeEventListener('adminDataUpdated', handleUpdate);
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 4000);
+    setSending(true);
+    setError('');
+
+    const formData = new FormData(e.target);
+    formData.append('access_key', 'b9238913-cb79-445d-a5d3-aa17e48ffffa'); // TODO: Replace with your Web3Forms access key from https://web3forms.com
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData,
+      });
+      const data = await res.json();
+      if (data.success) {
+        setSubmitted(true);
+        e.target.reset();
+      } else {
+        setError('Something went wrong. Please try again.');
+      }
+    } catch {
+      setError('Network error. Please try again later.');
+    }
+    setSending(false);
   };
 
   return (
@@ -84,45 +106,62 @@ export default function Contact() {
               </a>
             </div>
           </div>
-          {submitted ? (
-            <div className="contact-form reveal" style={{ '--delay': '0.2s' }}>
-              <div className="form-success">
-                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                  <polyline points="22 4 12 14.01 9 11.01"/>
-                </svg>
-                <h3>Message Sent!</h3>
-                <p>Thank you for reaching out. I'll get back to you soon.</p>
+          <div className="contact-form-wrapper reveal" style={{ '--delay': '0.2s' }}>
+            {submitted ? (
+              <div className="success-container form-submitted-visible">
+                <div className="form-success">
+                  <div className="success-particles">
+                    {[...Array(12)].map((_, i) => (
+                      <span key={i} className="particle particle-animate" style={{ '--i': i }} />
+                    ))}
+                  </div>
+                  <div className="success-icon success-icon-animate">
+                    <svg width="72" height="72" viewBox="0 0 24 24" fill="none" className="success-circle-svg">
+                      <circle cx="12" cy="12" r="10" stroke="#22c55e" strokeWidth="1.5" className="success-circle success-circle-animate" />
+                      <polyline points="8 12 11 15 16 9" stroke="#22c55e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="success-check success-check-animate" />
+                    </svg>
+                  </div>
+                  <h3>Message Sent Successfully!</h3>
+                  <p>Thank you for reaching out. I&apos;ll get back to you as soon as possible.</p>
+                  <div className="success-divider success-divider-animate"></div>
+                  <button className="btn btn-outline success-btn success-btn-animate" onClick={() => setSubmitted(false)}>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+                    <span>Send Another Message</span>
+                  </button>
+                </div>
               </div>
-            </div>
-          ) : (
-            <form className="contact-form reveal" style={{ '--delay': '0.2s' }} onSubmit={handleSubmit}>
-              <div className="form-group">
-                <input type="text" id="name" placeholder=" " required />
-                <label htmlFor="name">Your Name</label>
-                <div className="form-line"></div>
-              </div>
-              <div className="form-group">
-                <input type="email" id="email" placeholder=" " required />
-                <label htmlFor="email">Your Email</label>
-                <div className="form-line"></div>
-              </div>
-              <div className="form-group">
-                <input type="text" id="subject" placeholder=" " required />
-                <label htmlFor="subject">Subject</label>
-                <div className="form-line"></div>
-              </div>
-              <div className="form-group">
-                <textarea id="message" rows="5" placeholder=" " required></textarea>
-                <label htmlFor="message">Your Message</label>
-                <div className="form-line"></div>
-              </div>
-              <button type="submit" className="btn btn-primary btn-full">
-                <span>Send Message</span>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-              </button>
-            </form>
-          )}
+            ) : (
+              <form className="contact-form" onSubmit={handleSubmit}>
+                <input type="hidden" name="from_name" value="Portfolio Contact Form" />
+                <input type="hidden" name="subject" value="New message from Portfolio" />
+                {error && <div className="form-error">{error}</div>}
+                <div className="form-group">
+                  <input type="text" id="name" name="name" placeholder=" " required />
+                  <label htmlFor="name">Your Name</label>
+                  <div className="form-line"></div>
+                </div>
+                <div className="form-group">
+                  <input type="email" id="email" name="email" placeholder=" " required />
+                  <label htmlFor="email">Your Email</label>
+                  <div className="form-line"></div>
+                </div>
+                <div className="form-group">
+                  <input type="text" id="subject" name="subject_line" placeholder=" " required />
+                  <label htmlFor="subject">Subject</label>
+                  <div className="form-line"></div>
+                </div>
+                <div className="form-group">
+                  <textarea id="message" name="message" rows="5" placeholder=" " required></textarea>
+                  <label htmlFor="message">Your Message</label>
+                  <div className="form-line"></div>
+                </div>
+                <button type="submit" className="btn btn-primary btn-full" disabled={sending}>
+                  <span>{sending ? 'Sending...' : 'Send Message'}</span>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                </button>
+              </form>
+            )}
+          </div>
         </div>
       </div>
     </section>
