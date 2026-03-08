@@ -1,5 +1,7 @@
 # Shakeel Irfan — Portfolio
 
+**🔗 Live:** [irfanshakeel1094.github.io/Portfolio](https://irfanshakeel1094.github.io/Portfolio/)
+
 Personal portfolio website built with React 19, Vite 7, and Tailwind CSS v4 — featuring 3D effects, scroll animations, and a dark-themed design system.
 
 ## Features
@@ -75,11 +77,15 @@ The built files will be in the `dist/` directory, ready for deployment.
 
 ## Deployment
 
-This project can be deployed to any static hosting platform:
+This site is live on **GitHub Pages** at [irfanshakeel1094.github.io/Portfolio](https://irfanshakeel1094.github.io/Portfolio/).
 
-- **Vercel** — Connect the GitHub repo and deploy automatically
-- **Netlify** — Connect the GitHub repo or drag-and-drop the `dist/` folder
-- **GitHub Pages** — Add `base: '/Portfolio/'` to `vite.config.js` and deploy the `dist/` folder
+To redeploy, build and push the `dist/` folder to the `gh-pages` branch:
+
+```bash
+npm run build
+```
+
+Alternatively, it can be deployed to any static hosting platform (Vercel, Netlify, etc.).
 
 ## Project Structure
 
