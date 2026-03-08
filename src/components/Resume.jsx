@@ -5,7 +5,7 @@ import './Resume.css';
 // 2. Right-click → Share → "Anyone with the link"
 // 3. Copy the file ID from the share link
 // 4. Use format: https://drive.google.com/uc?export=download&id=YOUR_FILE_ID
-const RESUME_URL = 'https://drive.google.com/uc?export=download&id=1lO6nV_ch8RKL-DPocliRzfss3zA0rA8r';
+const RESUME_URL = 'https://drive.google.com/uc?export=download&id=1GuExAcUj1n_OvTVy4_tCL04BbpQLapvX';
 
 export default function Resume() {
   return (
