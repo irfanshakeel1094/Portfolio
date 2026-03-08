@@ -1,22 +1,13 @@
-import { useState, useEffect } from 'react';
 import './Resume.css';
-import { getResumeURL, getResumeMeta } from './adminUtils';
+
+// UPDATE THIS: Replace with your Google Drive direct download link
+// 1. Upload resume to Google Drive
+// 2. Right-click → Share → "Anyone with the link"
+// 3. Copy the file ID from the share link
+// 4. Use format: https://drive.google.com/uc?export=download&id=YOUR_FILE_ID
+const RESUME_URL = 'https://drive.google.com/uc?export=download&id=1lO6nV_ch8RKL-DPocliRzfss3zA0rA8r';
 
 export default function Resume() {
-  const [resumeUrl, setResumeUrl] = useState(() => getResumeURL());
-  const [resumeMeta, setResumeMeta] = useState(() => getResumeMeta());
-
-  useEffect(() => {
-    const handleUpdate = () => {
-      setResumeUrl(getResumeURL());
-      setResumeMeta(getResumeMeta());
-    };
-    window.addEventListener('adminDataUpdated', handleUpdate);
-    return () => window.removeEventListener('adminDataUpdated', handleUpdate);
-  }, []);
-
-  const uploadDate = resumeMeta?.uploadedAt || 'March 2026';
-
   return (
     <section className="section resume" id="resume">
       <div className="container">
@@ -60,9 +51,11 @@ export default function Resume() {
               </div>
             </div>
             <a
-              href={resumeUrl}
-              download={resumeMeta?.name || 'Shakeel_Irfan_Resume.pdf'}
+              href={RESUME_URL}
+              download="Shakeel_Irfan_Resume.pdf"
               className="btn btn-primary resume-download-btn"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
@@ -71,7 +64,7 @@ export default function Resume() {
               </svg>
               <span>Download Resume</span>
             </a>
-            <p className="resume-note">PDF • Updated {uploadDate}</p>
+            <p className="resume-note">PDF • Updated March 2026</p>
           </div>
         </div>
       </div>

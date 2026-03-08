@@ -3,26 +3,16 @@ import './Skills.css';
 import { getAdminData } from './adminUtils';
 
 const DEFAULT_SKILLS = [
-  { name: 'Python', percent: 90, color: '#3776AB' },
-  { name: 'Java', percent: 85, color: '#ED8B00' },
-  { name: 'JavaScript', percent: 85, color: '#F7DF1E' },
-  { name: 'React', percent: 80, color: '#61DAFB' },
-  { name: 'HTML5', percent: 92, color: '#E44D26' },
-  { name: 'CSS3', percent: 88, color: '#2965F1' },
-  { name: 'TailwindCSS', percent: 78, color: '#38B2AC' },
-  { name: 'Bash Script', percent: 72, color: '#4EAA25' },
-  { name: 'Figma', percent: 75, color: '#F24E1E' },
+  { name: 'Python', percent: 90, color: '#3776AB', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
+  { name: 'Java', percent: 85, color: '#ED8B00', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg' },
+  { name: 'JavaScript', percent: 85, color: '#F7DF1E', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg' },
+  { name: 'React', percent: 80, color: '#61DAFB', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
+  { name: 'HTML5', percent: 92, color: '#E44D26', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg' },
+  { name: 'CSS3', percent: 88, color: '#2965F1', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg' },
+  { name: 'TailwindCSS', percent: 78, color: '#38B2AC', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg' },
+  { name: 'Bash Script', percent: 72, color: '#4EAA25', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg' },
+  { name: 'Figma', percent: 75, color: '#F24E1E', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg' },
 ];
-
-// Generic code icon for skills
-function SkillIcon({ color }) {
-  return (
-    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5">
-      <polyline points="16 18 22 12 16 6"/>
-      <polyline points="8 6 2 12 8 18"/>
-    </svg>
-  );
-}
 
 export default function Skills() {
   const [skills, setSkills] = useState(() => {
@@ -56,7 +46,9 @@ export default function Skills() {
               className="skill-card reveal"
               style={{ '--delay': `${i * 0.08}s`, '--accent': `rgba(${hexToRgb(skill.color)}, 0.08)` }}
             >
-              <div className="skill-icon"><SkillIcon color={skill.color} /></div>
+              <div className="skill-icon">
+                <img src={skill.icon} alt={skill.name} width="40" height="40" loading="lazy" />
+              </div>
               <h3>{skill.name}</h3>
             </div>
           ))}
