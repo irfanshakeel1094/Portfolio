@@ -1,6 +1,6 @@
 # Shakeel Irfan A R — Portfolio
 
-**🔗 Live:** [irfanshakeel1094.github.io/Portfolio](https://irfanshakeel1094.github.io/Portfolio/)
+**🔗 Live:** [portfolio-gamma-nine-33.vercel.app](https://portfolio-gamma-nine-33.vercel.app/) | [GitHub Pages](https://irfanshakeel1094.github.io/Portfolio/)
 
 Personal portfolio website built with React 19, Vite 7, and Tailwind CSS v4 — featuring 3D effects, scroll animations, and a dark-themed design system.
 
