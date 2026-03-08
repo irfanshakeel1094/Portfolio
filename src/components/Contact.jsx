@@ -7,7 +7,7 @@ export default function Contact() {
 
   const [contactData, setContactData] = useState(() => {
     const data = getAdminData();
-    return data?.contact || { email: 'irfanshakeel1094@gmail.com', location: 'Chennai, Tamil Nadu, India' };
+    return data?.contact || { email: 'irfanshakeel1094@gmail.com', phone: '+91 98423 99132', location: 'Chennai, Tamil Nadu, India' };
   });
 
   useEffect(() => {
@@ -68,8 +68,8 @@ export default function Contact() {
                 </svg>
               </div>
               <div>
-                <h4>Education</h4>
-                <p>B.Tech CSE, SRMIST</p>
+                <h4>Phone</h4>
+                <p>{contactData.phone}</p>
               </div>
             </div>
             <div className="social-links">

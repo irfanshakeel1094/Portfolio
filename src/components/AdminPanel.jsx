@@ -150,6 +150,7 @@ export default function AdminPanel() {
       },
       contact: {
         email: 'irfanshakeel1094@gmail.com',
+        phone: '+91 98423 99132',
         location: 'Chennai, Tamil Nadu, India',
       },
       skills: DEFAULT_SKILLS,
