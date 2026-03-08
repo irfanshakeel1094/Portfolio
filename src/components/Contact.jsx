@@ -132,6 +132,7 @@ export default function Contact() {
               </div>
             ) : (
               <form className="contact-form" onSubmit={handleSubmit}>
+                <h3 className="form-title">Let's Connect</h3>
                 <input type="hidden" name="from_name" value="Portfolio Contact Form" />
                 <input type="hidden" name="subject" value="New message from Portfolio" />
                 {error && <div className="form-error">{error}</div>}
