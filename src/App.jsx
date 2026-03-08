@@ -4,7 +4,6 @@ import Hero from './components/Hero';
 import About from './components/About';
 import Services from './components/Services';
 import Skills from './components/Skills';
-import Timeline from './components/Timeline';
 import Projects from './components/Projects';
 import Certifications from './components/Certifications';
 import Resume from './components/Resume';
@@ -61,7 +60,6 @@ export default function App() {
       <About />
       <Services />
       <Skills />
-      <Timeline />
       <Projects />
       <Certifications />
       <Resume />
