@@ -47,7 +47,7 @@ export default function Navbar() {
     <nav className={`navbar${scrolled ? ' scrolled' : ''}`} id="navbar">
       <div className="nav-container">
         <a href="#hero" className="nav-logo">
-          <span className="logo-bracket">&lt;</span>Shakeel Irfan<span className="logo-bracket"> /&gt;</span>
+          <span className="logo-bracket">&lt;</span>Shakeel Irfan A R<span className="logo-bracket"> /&gt;</span>
         </a>
         <ul className={`nav-links${menuOpen ? ' open' : ''}`} id="navLinks">
           {navItems.map(item => (

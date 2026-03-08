@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="container">
         <div className="footer-content">
           <a href="#hero" className="footer-logo">
-            <span className="logo-bracket">&lt;</span>Shakeel Irfan<span className="logo-bracket"> /&gt;</span>
+            <span className="logo-bracket">&lt;</span>Shakeel Irfan A R<span className="logo-bracket"> /&gt;</span>
           </a>
           <p className="footer-text">Crafted with passion & code from Chennai, India</p>
           <p className="footer-copyright">&copy; 2026 Shakeel Irfan A R. All rights reserved.</p>

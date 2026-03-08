@@ -118,7 +118,7 @@ export default function AdminPanel() {
     const saved = getAdminData();
     return saved || {
       hero: {
-        name: 'Shakeel Irfan',
+        name: 'Shakeel Irfan A R',
         subtitle: 'A B.Tech CSE student at SRMIST passionate about Full Stack Development, Cybersecurity, and AI — building scalable apps with clean code and modern technologies.',
       },
       about: {

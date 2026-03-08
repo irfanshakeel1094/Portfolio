@@ -20,7 +20,7 @@ export default function Hero() {
 
   const [heroData, setHeroData] = useState(() => {
     const data = getAdminData();
-    return data?.hero || { name: 'Shakeel Irfan', subtitle: 'A B.Tech CSE student at SRMIST passionate about Full Stack Development, Cybersecurity, and AI — building scalable apps with clean code and modern technologies.' };
+    return data?.hero || { name: 'Shakeel Irfan A R', subtitle: 'A B.Tech CSE student at SRMIST passionate about Full Stack Development, Cybersecurity, and AI — building scalable apps with clean code and modern technologies.' };
   });
 
   useEffect(() => {
@@ -139,7 +139,7 @@ export default function Hero() {
           <div className="hero-image-wrapper">
             <div className="hero-glow" data-depth="0.5"></div>
             <div className="hero-avatar" data-depth="1.2">
-              <img src={profileImg} alt="Shakeel Irfan" className="avatar-image" />
+              <img src={profileImg} alt="Shakeel Irfan A R" className="avatar-image" />
             </div>
             <div className="floating-card card-1" data-depth="2">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>

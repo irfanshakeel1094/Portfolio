@@ -1,4 +1,4 @@
-# Shakeel Irfan — Portfolio
+# Shakeel Irfan A R — Portfolio
 
 **🔗 Live:** [irfanshakeel1094.github.io/Portfolio](https://irfanshakeel1094.github.io/Portfolio/)
 
